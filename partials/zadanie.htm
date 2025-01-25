@@ -1,0 +1,51 @@
+<div class="w3-container w3-padding-large" style="margin-bottom:32px">
+  <h3>Задание</h3>
+  <p>
+    Направете уеб сайт, който да съдържа следните елементи:
+  </p>
+  <ul>
+    <li>6 уеб страници</li>
+    <li>1 подменю</li>
+    <li>2 джаджи (widgets)</li>
+    <li>1 вградено медийно съдържание</li>
+  </ul>
+  <br>
+  <h3>Изпълнение</h3>
+  <ul>
+    <li>
+      <b>джаджа 1:</b> имплементирах бутон за сваляне на съдържанието в pdf формат 
+      <button id="printBtn" class="w3-button w3-dark-grey w3-margin-top w3-margin-bottom">
+        <i class="fa fa-download w3-margin-right"></i>Свали в PDF</button> като използвах библиотеката htmltopdf:
+        <pre><code>
+          var cloned = document.getElementById('to-pdf').cloneNode(true)
+          cloned.style.margin = '20px'
+          html2pdf(cloned)
+        </code></pre>
+    </li>
+    <li>
+      <b>джаджа 2:</b> имплементирах стилизиране на активната страница
+      <span class="w3-tag w3-grey w3-small w3-margin-bottom">HTML</span> <span class="w3-tag w3-black w3-margin-bottom">CSS</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">JAVASCRIPT</span>
+      като извлякох от <code>url</code>-а името на файла и след това добавих стилизиране на съответния елемент
+      <pre><code>
+        var filename = new URL(window.location.href).pathname.split('/').pop()
+        var withoutExt = filename.split('.')[0].toUpperCase()
+        
+        var collection = document.querySelectorAll('.w3-tag')
+        collection.forEach(el => {
+          if(el.textContent === withoutExt){
+            el.classList.add("w3-black")
+            el.classList.remove("w3-small")
+            el.classList.remove("w3-grey")
+          }
+        })
+      </code></pre>
+    </li>
+  </ul>
+
+</div>
+
+
+<!-- Goto Home -->
+<div class="w3-center w3-padding-32">
+  <a href="index.html" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>Начална страница</a>
+</div>
