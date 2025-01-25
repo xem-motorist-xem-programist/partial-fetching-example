@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>FMI Tutorial</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+    
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+      <div class="w3-container">
+        <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
+          <i class="fa fa-remove"></i>
+        </a>
+        <img src="../images/book.jpg" style="width:45%;" class="w3-round"><br><br>
+        <h4><b>Разработка на web сайт</b></h4>
+        <p class="w3-text-grey"><b>Ръководство</b></p>
+      </div>
+
+      <div class="w3-panel w3-large">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+      </div>
+    </nav>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:300px">
+      <!-- Header -->
+      <div id="to-pdf" class="w3-container">
+        <header id="portfolio">
+          <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+          <div>
+            <h2><b>Технологии за WEB разработка</b></h2>
+            <div class="w3-section w3-bottombar w3-padding-16">
+              <span class="w3-tag w3-grey w3-small w3-margin-bottom">HTML</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">CSS</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">JAVASCRIPT</span>
+              <span class="w3-tag w3-grey w3-small w3-margin-bottom">AJAX</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">XML</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">HTTP</span>
+            </div>
+          </div>
+        </header>
+
+        <h3>HTTP</h3>
+        <p>
+          HTTP е мрежов протокол за пренос на хипертекст от приложния слой на OSI модела.
+        </p>
+      </div>
+
+      <!-- PDF download -->
+      <p class="w3-container">
+        <button id="printBtn" class="w3-button w3-dark-grey w3-padding-large w3-margin-top w3-margin-bottom">
+          <i class="fa fa-download w3-margin-right"></i>Свали в PDF</button>
+      </p>
+  
+      <!-- Goto Home -->
+      <div class="w3-padding-32">
+        <a href="../index.html" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>Начална страница</a>
+      </div>
+
+    <!-- End main content -->
+    </div>
+      
+
+    <script>
+      addEventListener("DOMContentLoaded", (e) => {
+        document.getElementById('printBtn').addEventListener('click', getPDF)
+        makeTagActive()
+      });
+
+      // widget-1 : |lazy| download the page`s content in pdf format
+      function getPDF(e) {
+        // console.dir(e)
+        var script = document.createElement('script')
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js'
+        document.head.appendChild(script)
+        script.onload = () => {
+          console.log('html2pdf script has loaded')
+          var cloned = document.getElementById('to-pdf').cloneNode(true)
+          cloned.style.margin = '20px'
+          html2pdf(cloned)
+        }
+      }
+
+      // widget-2 : highlighting the current tag
+      function makeTagActive(){
+        // Extracting the filename from url
+        var filename = new URL(window.location.href).pathname.split('/').pop()
+        var withoutExt = filename.split('.')[0].toUpperCase()
+        console.log('in makeTagActive, filename = ', withoutExt)
+
+        var coll = document.querySelectorAll('.w3-tag')
+        coll.forEach(el => {
+          if(el.textContent === withoutExt){
+            el.classList.add("w3-black")
+            el.classList.remove("w3-small")
+            el.classList.remove("w3-grey")
+          }
+        })
+      }
+
+      // Script to open and close sidebar
+      function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+        document.getElementById("myOverlay").style.display = "block";
+      }
+      function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+        document.getElementById("myOverlay").style.display = "none";
+      }
+
+    </script>
+  </body>
+</html>
